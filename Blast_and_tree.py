@@ -1,21 +1,23 @@
 from Bio.Blast import NCBIWWW
 from Bio.Blast import NCBIXML
 import sys
+import os
 
 locus_name = sys.argv[1]
 
 
 print ("Blasting...")
-#result_handle1 = NCBIWWW.qblast("blastp", "env_nr", locus_name , hitlist_size=200)
-#result_handle2 = NCBIWWW.qblast("blastp", "nr", locus_name , hitlist_size=200)
+if not os.path.isfile("blastp_log.xml"):
+    result_handle1 = NCBIWWW.qblast("blastp", "env_nr", locus_name , hitlist_size=200)
+    result_handle2 = NCBIWWW.qblast("blastp", "nr", locus_name , hitlist_size=200)
 
-#with open("blastp_log.xml", "w") as out_handle:
-#    out_handle.write(result_handle1.read())
-#with open("blastp_log.xml", "a") as out_handle:
-#    out_handle.write(result_handle2.read())   
+    with open("blastp_log.xml", "w") as out_handle:
+        out_handle.write(result_handle1.read())
+    with open("blastp_log.xml", "a") as out_handle:
+        out_handle.write(result_handle2.read())   
 
-#result_handle1.close()
-#result_handle2.close()
+    result_handle1.close()
+    result_handle2.close()
 
 result_handle = open("blastp_log.xml",'r')
 
@@ -55,7 +57,7 @@ for alignment in blast_record.alignments:
             for hsp in alignment.hsps:
                 if IDENTITY >= IDENTITY_VALUE:               
                     fs1.write(">" + alignment.title.split("|")[1] +'\n')
-                    fs1.write(hsp.sbjct + '\n')
+                    fs1.write(hsp.sbjct.replace("-","") + '\n')
 fs1.close()
 print ("Done!")
 
