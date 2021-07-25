@@ -9,14 +9,11 @@ import apt
 
 cache = apt.Cache()
 if cache['cd-hit'].is_installed:
-    print "YES it's installed"
+    print ("YES it's installed")
 else:
-    print "NO it's NOT installed"
+    print ("NO it's NOT installed")
     os.system(f'sudo apt-get install cd-hit')
  
-db=sys.argv[1]
-out=sys.argv[2]
-threshold=sys.argv[3]
 
 def cdhit_meta(db,out, threshold):
     
@@ -26,7 +23,15 @@ def cdhit_meta(db,out, threshold):
     #out='/mnt/c/Users/sukha/mamK_cd_hit'
     os.system(f'cd-hit -i {db} -c {threshold} -o {out}')
 
-cdhit_meta(db,out,threshold)
+
+
+def main():
+    db=sys.argv[1]
+    out=sys.argv[2]
+    threshold=sys.argv[3]
+    cdhit_meta(db,out,threshold)
+
+
 
 if __name__ == "__main__":
     main()

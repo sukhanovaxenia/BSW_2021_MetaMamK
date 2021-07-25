@@ -15,8 +15,6 @@ else:
 
 def cdhit_meta(db,out):
     
-    
-    
     # pipeline.py input.fasta  out.fa
 
     #db='/mnt/c/Users/sukha/mamK_all_org_v8.fa'
