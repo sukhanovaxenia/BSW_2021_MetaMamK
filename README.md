@@ -12,19 +12,19 @@ Blast_and_tree.py - the main united function for blasting on the protein sequenc
   
   -chosen number of sequences is 200 to cut-off hardly homological proteins
 
-2.cd_hit.py - function for clustering homologues, the threshold is default = 0.9; 
+2. cd_hit.py - function for clustering homologues, the threshold is default = 0.9; 
 
   -input  - blast output; 
   
   -output - two files: .fa with centroids fasta, .clstr with clusters' contain
 
-3.Build_tree.py - function for building .nwk tree.; 
+3. Build_tree.py - function for building .nwk tree.; 
 
   -input - centroids' .fa file; 
   
   -output - .treefile format tree (this format contains .nwk tree information)
 
-4.Taxonomy_parse - function for taxonomy export form NCBI database, the chosen category is 'Lineage'; 
+4. Taxonomy_parse - function for taxonomy export form NCBI database, the chosen category is 'Lineage'; 
 
   -input - the accession .txt file generated on the first step (blast analysis)
   
