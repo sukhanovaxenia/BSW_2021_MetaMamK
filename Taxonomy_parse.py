@@ -11,7 +11,7 @@ import sys
 inl=sys.argwv[1]
 outtax=sys.argv[2]
 
-def (inl,outtax):
+def tax_parse(inl,outtax):
     inlist = inl
     handle = Entrez.esummary(db="protein", id = ','.join(inlist), retmax=100500)
     entry=Entrez.read(handle)
@@ -28,6 +28,11 @@ def (inl,outtax):
     with open(outtax, 'w') as output:
         for i in range(0,len(inlist)):
             output.write(print(inlist[i], taxonomy[i]))
+ 
+tax_parse(inl, outtax)
+
+if __name__ == "__main__":
+    main()
     
     
     
