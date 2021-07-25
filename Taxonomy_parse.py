@@ -34,22 +34,5 @@ def (inl,outtax):
         
 
 
-    
-
-
-# In[70]:
-
-
-for i in range(0,len(inlist)):
-    print(i)
-    print(inlist[i], taxonomy[i])
-
-#for i in taxonomy: 
-#    print(i)
-
-
-# In[ ]:
-
-
 
 
