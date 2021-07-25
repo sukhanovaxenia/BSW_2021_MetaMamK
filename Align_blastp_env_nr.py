@@ -49,6 +49,8 @@ print ("Done!")
 
 import cd_hit
 cd_hit.cdhit_meta(f"blast_result_for_{locus_name}.fa",f"clusters_{locus_name}.fa", 0.7)
+import Build_tree
+Build_tree.tree(f"clusters_{locus_name}.fa")
 
 
 
