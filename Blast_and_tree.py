@@ -29,11 +29,16 @@ E_VALUE_THRESH = 0.04
 count = 0
 f1 = open(f"blast_result_for_{locus_name}.log", 'w')
 f1.write(f"****Alignment {locus_name}**** \n")
+
+accessions = open(f"accessions_{locus_name}.txt", 'w')
 for blast_record in blast_records:
     for alignment in blast_record.alignments:
         for hsp in alignment.hsps:
             IDENTITY = (hsp.identities/hsp.align_length)
             if IDENTITY >= IDENTITY_VALUE and hsp.expect < E_VALUE_THRESH:
+#                print(alignment.title.split("|")[1])
+                accessions.write(alignment.title.split("|")[1] + "\n")             
+#                print(hsp.query)
                 f1.write(f"sequence: {alignment.title} \n")             
                 f1.write(f"coverage: {str(hsp.align_length/alignment.length)} \n")
                 f1.write(f"identity: {str(hsp.identities/hsp.align_length)} \n")
@@ -41,6 +46,7 @@ for blast_record in blast_records:
                 count+=1
 f1.write(f"num_aligments: {count} \n")
 f1.close()
+accessions.close()
 
 fs1 = open(f"blast_result_for_{locus_name}.fa", 'w')
 for alignment in blast_record.alignments:
