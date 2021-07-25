@@ -1,5 +1,3 @@
-#locus_name=input()
-
 from Bio.Blast import NCBIWWW
 from Bio.Blast import NCBIXML
 import sys
@@ -8,10 +6,16 @@ locus_name = sys.argv[1]
 
 
 print ("Blasting...")
-#result_handle = NCBIWWW.qblast("blastp", "env_nr", locus_name , hitlist_size=200)
-#with open("blastp_log.xml", "w") as out_handle:
-#    out_handle.write(result_handle.read())
-#result_handle.close()
+result_handle1 = NCBIWWW.qblast("blastp", "env_nr", locus_name , hitlist_size=200)
+result_handle2 = NCBIWWW.qblast("blastp", "nr", locus_name , hitlist_size=200)
+
+with open("blastp.xml", "w") as out_handle:
+    out_handle.write(result_handle1.read())
+with open("blastp.xml", "a") as out_handle:
+    out_handle.write(result_handle2.read())   
+
+result_handle.close()
+
 result_handle = open("blastp_log.xml")
 
 
