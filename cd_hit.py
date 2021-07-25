@@ -16,16 +16,17 @@ else:
  
 db=sys.argv[1]
 out=sys.argv[2]
+threshold=sys.argv[3]
 
-def cdhit_meta(db,out):
+def cdhit_meta(db,out, threshold):
     
     # pipeline.py input.fasta  out.fa
 
     #db='/mnt/c/Users/sukha/mamK_all_org_v8.fa'
     #out='/mnt/c/Users/sukha/mamK_cd_hit'
-    os.system(f'cd-hit -i {db} -c 0.7 -o {out}')
+    os.system(f'cd-hit -i {db} -c {threshold} -o {out}')
 
-cdhit_meta(db,out)
+cdhit_meta(db,out,threshold)
 
 if __name__ == "__main__":
     main()
