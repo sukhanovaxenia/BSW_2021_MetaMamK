@@ -9,11 +9,11 @@ else:
     print ("NO it's NOT installed")
     os.system(f'sudo apt-get update -y')
     os.system(f'sudo apt-get install -y mafft')
-    os.system(f'sudo apt-get install -y fasttree')
+    os.system(f'sudo apt-get install -y iqtree')
 
 def tree(infile):
     os.system(f"mafft {infile} > al_{infile}")
-    os.system(f"fasttree {infile} > fastree.tree")
+    os.system(f"iqtree -s al_{infile} -m TEST -bb 1000 -nt 4")
 
 def main():
     db=sys.argv[1]
