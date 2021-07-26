@@ -13,12 +13,12 @@ library(treeio)
 library(ggtree)
 library(phytools)
 library(dplyr)
-tree_vis<-function(treefile=dir(pattern = '*fa.treefile'), pngfile='tree_plot.png'){
+tree_vis<-function(treefile=dir(pattern = '*fa.treefile'),taxfile=dir(pattern='parsed*') pngfile='tree_plot.png'){
   tree <- read.tree(treefile)
   tree_r<- midpoint.root(tree)
   edge<-data.frame(tree_r$edge, edge_num=1:nrow(tree_r$edge))
   colnames(edge)<-c('parent', 'node', 'edge_num')
-  taxonomy<-read.table('tax.txt', sep='|', header=F)
+  taxonomy<-read.table(taxfile, sep='|', header=F)
   colnames(taxonomy)<-c('Accession', 'Protein', 'Lineage', 'Ecology')
   taxonomy2<-filter(taxonomy, Accession %in% tree_r$tip.label)
   tree_r$tip.label<-taxonomy2$Ecology
