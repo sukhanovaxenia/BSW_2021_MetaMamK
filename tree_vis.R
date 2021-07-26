@@ -10,7 +10,7 @@ library(ape)
 library(treeio)
 library(ggtree)
 library(phytools)
-tree_vis<-function(treefile, pngfile){
+tree_vis<-function(treefile=dir(pattern = '*.treefile'), pngfile='tree_plot.png'){
   tree <- read.tree(treefile)
   tree_r<- midpoint.root(tree)
   edge<-data.frame(tree_r$edge, edge_num=1:nrow(tree_r$edge))
