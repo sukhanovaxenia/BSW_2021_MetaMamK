@@ -1,19 +1,15 @@
 if (!requireNamespace("BiocManager", quietly = TRUE))
   +     install.packages("BiocManager")
-if (!requireNamespace("treeio", quietly = T))
-  + BiocManager::install("treeio")
-if (!requireNamespace("ggtree", quietly = T))
-  + install.packages("ggtree")
-if (!requireNamespace("phytools", quietly = T))
-  + BiocManager::install("phytools")
-if (!requireNamespace("dplyr", quietly = T))
-  + install.packages("dplyr")
+list.of.packages <- c('dplyr','ggplot2','ggtree','treeio','phytools')
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
 library(ape)
 library(treeio)
 library(ggtree)
 library(phytools)
 library(dplyr)
-tree_vis<-function(treefile=dir(pattern = '*fa.treefile'),taxfile=dir(pattern='parsed*') pngfile='tree_plot.png'){
+tree_vis<-function(treefile=dir(pattern = '*fa.treefile'),taxfile=dir(pattern='parsed*'), pngfile='tree_plot.png'){
   tree <- read.tree(treefile)
   tree_r<- midpoint.root(tree)
   edge<-data.frame(tree_r$edge, edge_num=1:nrow(tree_r$edge))
