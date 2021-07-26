@@ -19,11 +19,14 @@ library("treeio")
 library("ggtree")
 library("phytools")
 
-tree <- read.tree(file=sprintf('al_clusters_%s.fa.treefile', locus_name))
-edge<-data.frame(tree$edge, edge_num=1:nrow(tree$edge))
+tree<-read.tree('al_clusters_ASN76791.1.fa.treefile')
+tree_r<- midpoint.root(tree)
+edge<-data.frame(tree_r$edge, edge_num=1:nrow(tree_r$edge))
 colnames(edge)<-c('parent', 'node', 'edge_num')
-tree <- root(tree, outgroup=1, resolve.root=TRUE)
-tree<- midpoint.root(tree)
-
-group<-groupClade(tree, .node=c(min(edge$parent):max(edge$parent)))
-ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=1.5)+theme(legend.position='none')
+taxonomy<-read.table('tax.txt', sep='|', header=F)
+colnames(taxonomy)<-c('Accession', 'Protein', 'Lineage', 'Ecology')
+taxonomy2<-filter(taxonomy, Accession %in% tree_r$tip.label)
+tree_r$tip.label<-taxonomy2$Ecology
+#Load unique parents numbers into group:
+group<-groupClade(tree_r, .node=c(min(edge$parent):max(edge$parent)))
+ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=1.8)+theme(legend.position='none')
