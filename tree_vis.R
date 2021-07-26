@@ -24,4 +24,4 @@ tree_vis<-function(treefile=dir(pattern = '*fa.treefile'),taxfile=dir(pattern='^
   ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=1.8)+theme(legend.position='none')
   dev.off()
 }
-tree_vis()
+tree_vis(pngfile='tree_plot.png')
