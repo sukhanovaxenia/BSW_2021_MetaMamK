@@ -18,8 +18,8 @@ def tax_parse(inl,outtax):
     with open(inl, 'r') as f:
         for line in f:
             inlist.append(line.strip())
-    print(inlist)
-    handle = Entrez.esummary(db="protein", id =inlist, retmax=100500)
+    inlist_str = ",".join(inlist)
+    handle = Entrez.esummary(db="protein", id =inlist_str, retmax=100500)
     entry=Entrez.read(handle)
     tax_id=entry[0]
     ids=[]
