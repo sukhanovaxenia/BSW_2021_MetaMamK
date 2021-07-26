@@ -10,36 +10,33 @@ import sys
 Entrez.email='sukhanovaxenia@gmail.com'
 
 
-inl=sys.argv[1]
-outtax=sys.argv[2]
-
 def tax_parse(inl,outtax):
     inlist=[]
     with open(inl, 'r') as f:
         for line in f:
             inlist.append(line.strip())
     inlist_str = ",".join(inlist)
-    handle = Entrez.esummary(db="protein", id =inlist_str, retmax=100500)
-    entry=Entrez.read(handle)
-    tax_id=entry[0]
-    ids=[]
-    for elem in entry:
-        ids.append(str(elem['TaxId']))
-    ids_str=','.join(ids)
-    tax=Entrez.efetch(db='Taxonomy', id=ids_str, retmax=100500, retmode  = "xml")
-    tax1=Entrez.read(tax)
-    taxonomy=[]
-    for elem1 in tax1:
-        taxonomy.append(str(elem1['Lineage']))
-    with open(outtax, 'w') as output:
-        for i in range(0,len(inlist)):
-            output.write(print(inlist[i], taxonomy[i]))
-    output.close()
+    handle = Entrez.efetch(db="protein", id=inlist_str, retmode="xml")
+    records = Entrez.read(handle)
+    handle.close()
+    count = 0
+    with open(outtax, "w") as outfile:
+        for i in  records:
+            print (inlist[count], i["GBSeq_definition"], i["GBSeq_taxonomy"], i['GBSeq_source'])
+            outfile.write(f'{inlist[count]} | {i["GBSeq_definition"]} | {i["GBSeq_taxonomy"]} | {i["GBSeq_source"]} \n')
+            count+=1
+    
+#    handle = Entrez.esearch(db="protein", term ="MBA7623740.1", retmax=100500)
+   # except RuntimeError(value):
+    #    print("Invalid id")
  
-tax_parse(inl, outtax)
+def main():
+    inl=sys.argv[1]
+    outtax=sys.argv[2]
+    tax_parse(inl, outtax)
 
-#if __name__ == "__main__":
-#    main()
+if __name__ == "__main__":
+    main()
         
 
     
