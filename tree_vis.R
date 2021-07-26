@@ -1,0 +1,27 @@
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  +     install.packages("BiocManager")
+if (!requireNamespace("treeio", quietly = T))
+  + BiocManager::install("treeio")
+if (!requireNamespace("ggtree", quietly = T))
+  + BiocManager::install("ggtree")
+if (!requireNamespace("phytools", quietly = T))
+  + BiocManager::install("phytools")
+library(ape)
+library(treeio)
+library(ggtree)
+library(phytools)
+tree_vis<-function(treefile, pngfile){
+  tree <- read.tree(treefile)
+  tree_r<- midpoint.root(tree)
+  edge<-data.frame(tree_r$edge, edge_num=1:nrow(tree_r$edge))
+  colnames(edge)<-c('parent', 'node', 'edge_num')
+  taxonomy<-read.table('tax.txt', sep='|', header=F)
+  colnames(taxonomy)<-c('Accession', 'Protein', 'Lineage', 'Ecology')
+  taxonomy2<-filter(taxonomy, Accession %in% tree_r$tip.label)
+  tree_r$tip.label<-taxonomy2$Ecology
+  #Load unique parents numbers into group:
+  group<-groupClade(tree_r, .node=c(min(edge$parent):max(edge$parent)))
+  png(filename=pngfile)
+  ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=1.8)+theme(legend.position='none')
+  dev.off()
+}
