@@ -13,7 +13,7 @@ else:
 
 def tree(infile):
     os.system(f"mafft {infile} > al_{infile}")
-    os.system(f"iqtree -s al_{infile} -m TEST -bb 1000 -nt 4")
+    os.system(f"fasttree al_clusters_ASN76791.1.fa > fasttree.tree")
 
 def main():
     db=sys.argv[1]
