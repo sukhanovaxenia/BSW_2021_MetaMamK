@@ -10,7 +10,7 @@ Blast_and_tree.py - the main united function for blasting on the protein sequenc
 
 1. Blast furnction generates .fa alignment, .log file with identity, e-value and hits, .txt file with accession numbers; 
   
-  -chosen number of sequences is 200 to cut-off hardly homological proteins
+  -chosen number of sequences is 200 from genome db and 200 from metagenome db to cut-off hardly homological proteins
 
 2. cd_hit.py - function for clustering homologues, the threshold is default = 0.9; 
 
