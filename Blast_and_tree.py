@@ -32,6 +32,7 @@ E_VALUE_THRESH = 0.04
 count = 0
 f1 = open(f"blast_result_for_{locus_name}.log", 'w')
 f1.write(f"****Alignment {locus_name}**** \n")
+fs1 = open(f"blast_result_for_{locus_name}.fa", 'w')
 
 accessions = open(f"accessions_{locus_name}.txt", 'w')
 for blast_record in blast_records:
@@ -46,20 +47,15 @@ for blast_record in blast_records:
                 f1.write(f"coverage: {str(hsp.align_length/alignment.length)} \n")
                 f1.write(f"identity: {str(hsp.identities/hsp.align_length)} \n")
                 f1.write(f"e value: {str(hsp.expect)} \n")
+                fs1.write(">" + alignment.title.split("|")[1] +'\n')
+                fs1.write(hsp.sbjct.replace("-","") + '\n')
                 count+=1
 f1.write(f"num_aligments: {count} \n")
 f1.close()
+fs1.close()
 accessions.close()
 
-fs1 = open(f"blast_result_for_{locus_name}.fa", 'w')
-for blast_record in blast_records:  
-    for alignment in blast_record.alignments:
-        for hsp in alignment.hsps:
-            IDENTITY = (hsp.identities/hsp.align_length)
-            if IDENTITY >= IDENTITY_VALUE and hsp.expect < E_VALUE_THRESH:              
-                    fs1.write(">" + alignment.title.split("|")[1] +'\n')
-                    fs1.write(hsp.sbjct.replace("-","") + '\n')
-fs1.close()
+                
 print ("Done!")
 
 import cd_hit
