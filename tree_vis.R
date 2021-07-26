@@ -9,7 +9,7 @@ library(treeio)
 library(ggtree)
 library(phytools)
 library(dplyr)
-tree_vis<-function(treefile=dir(pattern = '*fa.treefile'),taxfile=dir(pattern='parsed*'), pngfile='tree_plot.png'){
+tree_vis<-function(treefile=dir(pattern = '*fa.treefile'),taxfile=dir(pattern='^parsed.*?\\.txt'), pngfile='tree_plot.png'){
   tree <- read.tree(treefile)
   tree_r<- midpoint.root(tree)
   edge<-data.frame(tree_r$edge, edge_num=1:nrow(tree_r$edge))
