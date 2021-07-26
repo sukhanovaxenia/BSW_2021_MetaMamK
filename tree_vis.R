@@ -25,3 +25,4 @@ tree_vis<-function(treefile=dir(pattern = '*.treefile'), pngfile='tree_plot.png'
   ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=1.8)+theme(legend.position='none')
   dev.off()
 }
+tree_vis()
