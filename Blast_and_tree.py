@@ -8,6 +8,7 @@ locus_name = sys.argv[1]
 
 print ("Blasting...")
 if not os.path.isfile("blastp_log.xml"):
+    
     result_handle1 = NCBIWWW.qblast("blastp", "env_nr", locus_name , hitlist_size=200)
     result_handle2 = NCBIWWW.qblast("blastp", "nr", locus_name , hitlist_size=200)
 
@@ -51,11 +52,11 @@ f1.close()
 accessions.close()
 
 fs1 = open(f"blast_result_for_{locus_name}.fa", 'w')
-for alignment in blast_record.alignments:
+for blast_record in blast_records:  
+    for alignment in blast_record.alignments:
+        for hsp in alignment.hsps:
             IDENTITY = (hsp.identities/hsp.align_length)
-            IDENTITY_VALUE = 0.3
-            for hsp in alignment.hsps:
-                if IDENTITY >= IDENTITY_VALUE and hsp.expect < E_VALUE_THRESH:               
+            if IDENTITY >= IDENTITY_VALUE and hsp.expect < E_VALUE_THRESH:              
                     fs1.write(">" + alignment.title.split("|")[1] +'\n')
                     fs1.write(hsp.sbjct.replace("-","") + '\n')
 fs1.close()
