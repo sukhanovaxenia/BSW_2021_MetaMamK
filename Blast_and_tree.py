@@ -55,7 +55,7 @@ for alignment in blast_record.alignments:
             IDENTITY = (hsp.identities/hsp.align_length)
             IDENTITY_VALUE = 0.3
             for hsp in alignment.hsps:
-                if IDENTITY >= IDENTITY_VALUE:               
+                if IDENTITY >= IDENTITY_VALUE and hsp.expect < E_VALUE_THRESH:               
                     fs1.write(">" + alignment.title.split("|")[1] +'\n')
                     fs1.write(hsp.sbjct.replace("-","") + '\n')
 fs1.close()
