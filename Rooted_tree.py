@@ -26,4 +26,4 @@ tree <- root(tree, outgroup=1, resolve.root=TRUE)
 tree<- midpoint.root(tree)
 
 group<-groupClade(tree, .node=c(58:112))
-ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab()
+ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=2)+theme(legend.position='none')
