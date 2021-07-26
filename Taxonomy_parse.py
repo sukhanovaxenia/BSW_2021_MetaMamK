@@ -22,8 +22,7 @@ def tax_parse(inl,outtax):
     count = 0
     with open(outtax, "w") as outfile:
         for i in  records:
-            print (inlist[count], i["GBSeq_definition"], i["GBSeq_taxonomy"], i['GBSeq_source'])
-            outfile.write(f'{inlist[count]} | {i["GBSeq_definition"]} | {i["GBSeq_taxonomy"]} | {i["GBSeq_source"]} \n')
+            outfile.write(f'{inlist[count]}|{i["GBSeq_definition"]}|{i["GBSeq_taxonomy"]}|{i["GBSeq_source"]} \n')
             count+=1
     
 #    handle = Entrez.esearch(db="protein", term ="MBA7623740.1", retmax=100500)
