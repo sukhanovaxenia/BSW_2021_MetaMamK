@@ -13,7 +13,7 @@ else:
 
 def tree(infile):
     os.system(f"mafft {infile} > al_{infile}")
-    os.system(f"fasttree al_clusters_ASN76791.1.fa > fasttree.tree")
+    os.system(f"fasttree {infile} > fatree.tree")
 
 def main():
     db=sys.argv[1]
