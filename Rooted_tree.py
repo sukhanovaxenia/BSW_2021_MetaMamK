@@ -25,5 +25,5 @@ colnames(edge)<-c('parent', 'node', 'edge_num')
 tree <- root(tree, outgroup=1, resolve.root=TRUE)
 tree<- midpoint.root(tree)
 
-group<-groupClade(tree, .node=c(58:112))
+group<-groupClade(tree, .node=c(min(edge$parent):max(edge$parent)))
 ggtree(group, aes(color=group), rooted=TRUE)+geom_tiplab(size=2)+theme(legend.position='none')
